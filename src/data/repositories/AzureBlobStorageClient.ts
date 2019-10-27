@@ -21,12 +21,9 @@ export class AzureBlobStorageClient {
   private azureBlobURL:string = ''
   private containerName: string = ''
 
-  constructor (
-    @inject('AzureBlobStorageAccountName') accountName: IAppConfig['azure']['storage']['accountName'],
-    @inject('AzureBlobStorageAccountAccessKey') accountAccessKey: IAppConfig['azure']['storage']['accountAccessKey'],
-    @inject('AzureBlobStorageContainerName') containerName: IAppConfig['azure']['storage']['containerName'], ) {
+  constructor (@inject('AzureBlobStorageConfig') { accountAccessKey, accountName, containerName }: IAppConfig['azure']['storage']) {
     this.azureBlobURL = `https://${accountName}.blob.core.windows.net`
-    this.containerName = containerName 
+    this.containerName = containerName
 
     const credentials = new SharedKeyCredential(accountName, accountAccessKey);
     const pipeline = StorageURL.newPipeline(credentials);
@@ -48,10 +45,10 @@ export class AzureBlobStorageClient {
     const stream = fs.createReadStream(buff);
 
     await uploadStreamToBlockBlob(
-                    aborter, 
-                    stream, 
-                    blockBlobURL, 
-                    uploadOptions.bufferSize, 
+                    aborter,
+                    stream,
+                    blockBlobURL,
+                    uploadOptions.bufferSize,
                     uploadOptions.maxBuffers);
 
     return `${this.azureBlobURL}/${this.containerName}/${imageName}`
