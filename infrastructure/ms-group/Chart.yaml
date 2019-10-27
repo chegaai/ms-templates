@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Template template microservice
+name: ms-template
+version: 0.1.0
