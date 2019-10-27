@@ -10,7 +10,7 @@ export class GroupClient {
 
   private readonly client: AxiosInstance
 
-  constructor (@inject('GroupServiceConnection') connectionData: IAppConfig['microServices']['group']) {
+  constructor (@inject('GroupServiceConfig') connectionData: IAppConfig['microServices']['group']) {
     this.client = axios.create({ baseURL: connectionData.url })
   }
 
