@@ -10,8 +10,8 @@ maxReplicas: 10
 cpuUsage: 60
 
 image:
-  registry: gcr.io/nindoo-214818
-  name: template-ms-template
+  registry: chegaai.azurecr.io
+  name: ms-template
   tag: v1.0.0
   pullPolicy: IfNotPresent
 
