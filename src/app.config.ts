@@ -18,7 +18,8 @@ export interface IAppConfig extends IExpressoConfigOptions {
     storage: {
       accountName: string,
       accountAccessKey: string,
-      containerName: string
+      containerName: string,
+      timeOut: number
     }
   }
 }
@@ -30,7 +31,7 @@ export const config: IAppConfig = {
   },
   database: {
     mongodb: {
-      uri: env.get('DATABASE_MONGODB_URI', ''),
+      uri: env.get('DATABASE_MONGODB_URI', 'mongdb://0.0.0.0:27017'),
       dbName: env.get('DATABASE_MONGODB_DBNAME', 'template'),
       maximumConnectionAttempts: 5,
       options: {}
@@ -43,9 +44,11 @@ export const config: IAppConfig = {
   },
   azure:{
     storage: {
-      accountName: env.get('AZURE_STORAGE_ACCOUNT_NAME', ''),
-      accountAccessKey: env.get('AZURE_STORAGE_ACCOUNT_ACCESS_KEY', ''),
-      containerName: env.get('AZURE_STORAGE_CONTAINER_NAME', 'certificates')
+      accountName: env.get('MS_TEMPLATES_AZURE_STORAGE_ACCOUNT_NAME', ''),
+      accountAccessKey: env.get('MS_TEMPLATES_AZURE_STORAGE_ACCOUNT_ACCESS_KEY', ''),
+      containerName: env.get('MS_TEMPLATES_AZURE_STORAGE_CONTAINER_NAME', 'templates'),
+      timeOut: env.get('MS_TEMPLATES_AZURE_STORAGE_TIMEOUT', 60000)
+
     }
   }
 }

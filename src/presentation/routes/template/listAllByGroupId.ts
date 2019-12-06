@@ -13,7 +13,7 @@ export function factory (service: TemplateService) {
       }
     }),
     rescue(async (req: Request, res: Response) => {
-      const templates = await service.listAllByGroupId(req.query.page, req.query.size)
+      const templates = await service.listAllByGroupId(req.params.groupId, req.query.page, req.query.size)
 
       res.status(200)
         .set({
