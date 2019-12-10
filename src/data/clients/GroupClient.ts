@@ -4,6 +4,7 @@ import axios, { AxiosInstance } from 'axios'
 import { ObjectId } from 'bson'
 import { UnresponsiveServiceError } from '../errors/UnresponsiveServiceError'
 import { ServiceError } from '../errors/ServiceError'
+import { GroupResponse } from './structures/GroupeResponse'
 
 @injectable()
 export class GroupClient {
@@ -14,9 +15,9 @@ export class GroupClient {
     this.client = axios.create({ baseURL: connectionData.url })
   }
 
-  async findGroupById (id: ObjectId | string) {
+  async findGroupById (id: ObjectId | string): Promise<GroupResponse | null>{
     try {
-      const { data } = await this.client.get(`/groups/${new ObjectId(id).toHexString()}`)
+      const { data } = await this.client.get(`/${new ObjectId(id).toHexString()}`)
       return data
     } catch (error) {
       if (!error.response) throw new UnresponsiveServiceError('groups')
