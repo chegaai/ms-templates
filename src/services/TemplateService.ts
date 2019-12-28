@@ -21,7 +21,7 @@ export class TemplateService {
   ) { }
 
   private async uploadBase64(base64: string){
-    const url = await this.blobStorageClient.upload(base64)
+    const url = await this.blobStorageClient.uploadBase64(base64, 'image/*')
     if(!url)
       throw Error() //TODO: throw better error handler
     return url
@@ -36,7 +36,7 @@ export class TemplateService {
 
     creationData.exampleImage = await this.uploadBase64(base64)
     const template = Template.create(new ObjectId(), creationData)
-    
+
     return this.repository.save(template)
   }
 
