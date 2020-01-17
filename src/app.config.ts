@@ -1,7 +1,9 @@
 import env from 'sugar-env'
+import { LogLevel } from '@opentelemetry/core'
 import { IExpressoConfigOptions } from '@expresso/app'
 import { IMongoParams } from '@nindoo/mongodb-data-layer'
 import { IServerConfig } from '@expresso/server'
+import { IExpressoTracerConfig } from '@expresso/tracing/dist/types'
 
 export interface IAppConfig extends IExpressoConfigOptions {
   name: string,
@@ -21,11 +23,14 @@ export interface IAppConfig extends IExpressoConfigOptions {
       containerName: string,
       timeOut: number
     }
-  }
+  },
+  tracing: IExpressoTracerConfig
 }
 
+const APP_NAME = 'ms-templates'
+
 export const config: IAppConfig = {
-  name: 'ms-templates',
+  name: APP_NAME,
   server: {
     printOnListening: true,
   },
@@ -49,6 +54,15 @@ export const config: IAppConfig = {
       containerName: env.get('AZURE_STORAGE_CONTAINER_NAME', 'templates'),
       timeOut: env.get('AZURE_STORAGE_TIMEOUT', 60000)
 
+    }
+  },
+  tracing: {
+    jaeger: {
+      serviceName: APP_NAME,
+      host: env.get('JAEGER_AGENT_HOST', '')
+    },
+    tracer: {
+      logLevel: LogLevel.ERROR
     }
   }
 }
