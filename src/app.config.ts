@@ -49,7 +49,7 @@ export const config: IAppConfig = {
   },
   azure:{
     storage: {
-      accountName: env.get('AZURE_STORAGE_ACCOUNT_NAME', ''),
+      accountName: env.get('AZURE_STORAGE_ACCOUNT_NAME', 'chegaai'),
       accountAccessKey: env.get('AZURE_STORAGE_ACCOUNT_ACCESS_KEY', ''),
       containerName: env.get('AZURE_STORAGE_CONTAINER_NAME', 'templates'),
       timeOut: env.get('AZURE_STORAGE_TIMEOUT', 60000)
