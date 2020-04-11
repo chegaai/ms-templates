@@ -22,9 +22,9 @@ export class TemplateService {
 
   private async uploadBase64(base64: string){
     try{
-    const url = await this.blobStorageClient.uploadBase64(base64, 'image/*')
-    if(!url)
-      throw Error() //TODO: throw better error handler
+      const url = await this.blobStorageClient.uploadBase64(base64, 'image/*')
+      if(!url)
+        throw Error() //TODO: throw better error handler
     }catch(error){
       console.log(error)
     }
